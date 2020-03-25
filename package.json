@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "run": "nodemon src/index.js"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mongodb": "^3.5.5",
     "mongoose": "^5.9.5"
   },
   "devDependencies": {
