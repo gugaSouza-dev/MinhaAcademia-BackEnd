@@ -1,0 +1,8 @@
+yarn add
+
+yarn add nodemon
+
+//n sei se precisa desse
+yarn add body-parser express http-status mongoose morgan nodemon
+
+yarn add sucrase
