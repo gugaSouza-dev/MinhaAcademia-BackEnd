@@ -10,7 +10,6 @@ module.exports = {
     },
     
     
-
     //Busca academia por id
     async GetAcademiaById(request, response) {
 
