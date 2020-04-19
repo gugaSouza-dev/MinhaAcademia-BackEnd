@@ -20,5 +20,7 @@ routes.post('/alunos/:id', AlunoController.AddAluno);
 
 routes.get('/alunos/:id', AlunoController.GetAluno);
 
+routes.get('/alunos/:idAcademia/:idAluno', AlunoController.GetAlunoById);
+
 
 module.exports = routes; 
