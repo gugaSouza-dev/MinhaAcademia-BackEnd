@@ -4,26 +4,52 @@ const Academia = require('../models/Academia');
 module.exports = {
     //Lista todas as academias
     async GetAcademia(request, response) {
-        const academia = await Academia.find();
-        return response.json(academia);
-        
+        try {
+            const academia = await Academia.find();
+            return response.json(academia);
+        } catch (error) {
+            return response.status(400).send({
+                error: 'Erro na pesquisa de academias'
+            })
+        }
     },
-    
-    
+
+
     //Busca academia por id
     async GetAcademiaById(request, response) {
+        try {
 
-        const id = { _id: request.params.id };
-        const academia = await Academia.findById(id);
+            const id = {
+                _id: request.params.id
+            };
+            const academia = await Academia.findById(id);
 
-        return response.json(academia);
+            return response.json(academia);
+        } catch (error) {
+            return response.status(400).send({
+                error: 'Erro na pesquisa de academia'
+            })
+        }
+
     },
 
 
     //Adiciona uma nova academia
     async AddAcademia(request, response) {
-        const { logo, nome_acad,tel_acad, tel_resp, nome_resp,  rua, numero,
-            complemento, cep, cidade, estado, aluno } = request.body;
+        const {
+            logo,
+            nome_acad,
+            tel_acad,
+            tel_resp,
+            nome_resp,
+            rua,
+            numero,
+            complemento,
+            cep,
+            cidade,
+            estado,
+            aluno
+        } = request.body;
 
         const academia = await Academia.create({
             logo,
@@ -44,38 +70,48 @@ module.exports = {
 
     //Atualiza uma academia
     async UpdateAcademia(request, response) {
-        
-        const { nome_acad,  nome_resp, tel_resp,tel_acad, rua, numero,
-            complemento, cep, cidade, estado } = request.body;
-            
-            const updateAcademia =  await Academia.updateOne({
-                
-                nome_acad,
-                nome_resp,
-                tel_resp,
-                tel_acad,
-                rua,
-                numero,
-                complemento,
-                cep,
-                cidade,
-                estado
-            })
-            
-            //Arrumar o retorno
-            return response.json(updateAcademia);
+
+        const {
+            nome_acad,
+            nome_resp,
+            tel_resp,
+            tel_acad,
+            rua,
+            numero,
+            complemento,
+            cep,
+            cidade,
+            estado
+        } = request.body;
+
+        const updateAcademia = await Academia.updateOne({
+
+            nome_acad,
+            nome_resp,
+            tel_resp,
+            tel_acad,
+            rua,
+            numero,
+            complemento,
+            cep,
+            cidade,
+            estado
+        })
+
+        //Arrumar o retorno
+        return response.json(updateAcademia);
 
     },
 
     //Deleta uma academia
-    async DeleteAcademia(request, response){
+    async DeleteAcademia(request, response) {
 
-        const id = { _id: request.params.id };
+        const id = {
+            _id: request.params.id
+        };
 
         const deleteAcademia = await Academia.findByIdAndRemove(id);
 
         return response.json(deleteAcademia);
     }
 };
-
-

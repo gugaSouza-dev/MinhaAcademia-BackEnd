@@ -1,8 +1,12 @@
 const { Router } = require('express');
 const AcademiaController = require('./controllers/AcademiaController');
 const AlunoController = require('./controllers/AlunoController');
+const AuthController = require('./controllers/AuthController');
 
 const routes = Router();
+
+routes.post('/registro', AuthController.Registro);
+
 
 routes.get('/academias', AcademiaController.GetAcademia);
 

@@ -7,7 +7,7 @@ const routes = require('./routes');
 const app = express();
 
 //Conexção com banco
-mongoose.connect('mongodb+srv://minhaacademia:minhaacademia@minhaacademia-p2gsi.mongodb.net/MinhaAcademia?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://minhaAcademia:minhaAcademia@minhaacademia.c23pv.mongodb.net/minhaAcademia?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

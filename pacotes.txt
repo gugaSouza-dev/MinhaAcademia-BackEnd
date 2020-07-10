@@ -6,3 +6,9 @@ yarn add nodemon
 yarn add body-parser express http-status mongoose morgan nodemon
 
 yarn add sucrase
+
+yarn add mongoose
+
+yarn add bcrypt 
+
+yarn add jsonwebtoken

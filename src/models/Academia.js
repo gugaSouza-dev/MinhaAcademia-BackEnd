@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 
 const AcademiaSchema = new mongoose.Schema({
     
     //https://stackoverflow.com/questions/29780733/store-an-image-in-mongodb-using-node-js-express-and-mongoose
-    logo: {data: Buffer, contentType: String},
+    // logo: {data: Buffer, contentType: String},
+    email: {type: String, required: true, lowercase: true},
+    senha: {type: String, required: true, select: false},
     nome_acad: String,
     nome_resp: String,
     tel_resp: String,
@@ -34,6 +36,13 @@ const AcademiaSchema = new mongoose.Schema({
             status: Boolean
         }]
     }]
+});
+
+AcademiaSchema.pre('save', async function (next) {
+    const hash = await bcrypt.hash(this.password,10);
+    this.password = hash;
+
+    next();
 });
 
 module.exports = mongoose.model('Academia', AcademiaSchema);
