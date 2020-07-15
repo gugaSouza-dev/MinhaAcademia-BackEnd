@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 
 
+
 const app = express();
 
 //Conexção com banco
-mongoose.connect('mongodb+srv://minhaAcademia:minhaAcademia@minhaacademia.c23pv.mongodb.net/minhaAcademia?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://minhaAcademia:minhaAcademia@minhaacademia.c23pv.mongodb.net/MinhaAcademia?authSource=admin&replicaSet=atlas-zi3bfy-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

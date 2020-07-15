@@ -7,6 +7,7 @@ const AcademiaSchema = new mongoose.Schema({
     // logo: {data: Buffer, contentType: String},
     email: {type: String, required: true, lowercase: true},
     senha: {type: String, required: true, select: false},
+    adm: Boolean,
     nome_acad: String,
     nome_resp: String,
     tel_resp: String,
@@ -39,8 +40,8 @@ const AcademiaSchema = new mongoose.Schema({
 });
 
 AcademiaSchema.pre('save', async function (next) {
-    const hash = await bcrypt.hash(this.password,10);
-    this.password = hash;
+    const hash = await bcrypt.hash(this.senha,10);
+    this.senha = hash;
 
     next();
 });

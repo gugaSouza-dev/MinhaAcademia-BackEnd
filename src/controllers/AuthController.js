@@ -1,27 +1,30 @@
 const Academia = require('../models/Academia');
-const { USE_PROXY } = require('http-status');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     async Registro(req, res){
-        const {email, senha, nome_acad} = req.body;
+        const { email,senha,nome_acad, adm} = req.body;
         try {
+            if (email && senha == null) 
+                return res.status(400).send({error: 'Campos nao preenchidos'})
+
             if (await Academia.findOne({email}))
                 return res.status(400).send({error: 'Usuario ja existe'});
             
-            const academia = await Academia.create(req.body);
-
+            const academia = await Academia.create({email, senha, nome_acad, adm});
+            
             academia.senha = undefined;
 
-            return req.send({academia})
+            return res.send({academia})
 
         } catch (error) {
             return res.status(400).send({error: 'Erro no registro'});
         }
     },
 
-    async Auth(req, res){
+    async Login(req, res){
         const {email, senha} = req.body;
         try {
             const academia = await Academia.findOne({email}).select('+senha');
@@ -34,12 +37,13 @@ module.exports = {
 
             academia.senha = undefined;
 
-            const token = jwt.sign({id: academia.id}, authConfig.secret, {
+            const token = jwt.sign({id: academia.id, adm: academia.adm}, authConfig.secret, {
                 expiresIn: 28800,
             });
 
-            res.send({academia});
+            res.send({academia, token});
         } catch (error) {
+            console.log(error)
             return res.status(400).send({error: 'Erro na autenticaçao'});
         }
     }

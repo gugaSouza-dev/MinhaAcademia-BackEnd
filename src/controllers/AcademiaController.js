@@ -1,19 +1,8 @@
+const express = require('express');
 const Academia = require('../models/Academia');
 
 
 module.exports = {
-    //Lista todas as academias
-    async GetAcademia(request, response) {
-        try {
-            const academia = await Academia.find();
-            return response.json(academia);
-        } catch (error) {
-            return response.status(400).send({
-                error: 'Erro na pesquisa de academias'
-            })
-        }
-    },
-
 
     //Busca academia por id
     async GetAcademiaById(request, response) {
@@ -33,39 +22,46 @@ module.exports = {
 
     },
 
-
     //Adiciona uma nova academia
     async AddAcademia(request, response) {
-        const {
-            logo,
-            nome_acad,
-            tel_acad,
-            tel_resp,
-            nome_resp,
-            rua,
-            numero,
-            complemento,
-            cep,
-            cidade,
-            estado,
-            aluno
-        } = request.body;
-
-        const academia = await Academia.create({
-            logo,
-            nome_acad,
-            nome_resp,
-            tel_resp,
-            tel_acad,
-            rua,
-            numero,
-            complemento,
-            cep,
-            cidade,
-            estado,
-            aluno
-        })
-        return response.json(academia)
+        try {
+            const {
+                logo,
+                nome_acad,
+                tel_acad,
+                tel_resp,
+                nome_resp,
+                rua,
+                numero,
+                complemento,
+                cep,
+                cidade,
+                estado,
+                aluno
+            } = await request.body;
+    
+            const academia = await Academia.create({
+                logo,
+                nome_acad,
+                nome_resp,
+                tel_resp,
+                tel_acad,
+                rua,
+                numero,
+                complemento,
+                cep,
+                cidade,
+                estado,
+                aluno
+            })
+            return response.json(academia)
+        } catch (error) {
+            console.log(error)
+            return response.status(400).send({
+                error: 'Erro na criacao da academia'
+            })
+        }
+      
     },
 
     //Atualiza uma academia
