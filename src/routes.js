@@ -17,17 +17,18 @@ routes.post('/login', AuthController.Login);
 routes.use(authMiddleware);
 
 
-
-routes.get('/academias/:id', AcademiaController.GetAcademiaById);
+//Funçoes da academia
 
 routes.post('/academias', AcademiaController.AddAcademia);
 
-routes.put('/academias/:id', AcademiaController.UpdateAcademia);
+routes.get('/academias', AcademiaController.DadosAcademia);
 
-routes.delete('/academias/:id', AcademiaController.DeleteAcademia);
+routes.put('/academias', AcademiaController.UpdateAcademia);
+
+routes.delete('/academias', AcademiaController.DeleteAcademia);
 
 
-
+//Funçoes dos alunos
 routes.post('/alunos/:id', AlunoController.AddAluno);
 
 routes.get('/alunos/:id', AlunoController.GetAluno);
@@ -36,6 +37,10 @@ routes.get('/alunos/:idAcademia/:idAluno', AlunoController.GetAlunoById);
 
 
 //Funçoes do adm
-routes.get('/academia/adm', AdmController.ListaAcademia);
+routes.get('/academias/adm', AdmController.ListaAcademia);
+
+routes.get('/academias/adm/:id', AdmController.GetAcademiaById);
+
+routes.delete('/academias/adm/:id', AdmController.DeletaQualquerAcademia);
 
 module.exports = routes; 

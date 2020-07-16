@@ -5,9 +5,10 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
     async Registro(req, res){
-        const { email,senha,nome_acad, adm} = req.body;
+        const { email, senha, nome_acad, adm} = req.body;
+
         try {
-            if (email && senha == null) 
+            if (email | senha == null) 
                 return res.status(400).send({error: 'Campos nao preenchidos'})
 
             if (await Academia.findOne({email}))

@@ -1,113 +1,95 @@
+'use strict'
 const express = require('express');
 const Academia = require('../models/Academia');
 
 
 module.exports = {
 
-    //Busca academia por id
-    async GetAcademiaById(request, response) {
-        try {
-
-            const id = {
-                _id: request.params.id
-            };
-            const academia = await Academia.findById(id);
-
-            return response.json(academia);
-        } catch (error) {
-            return response.status(400).send({
-                error: 'Erro na pesquisa de academia'
-            })
-        }
-
-    },
-
     //Adiciona uma nova academia
     async AddAcademia(request, response) {
         try {
-            const {
-                logo,
-                nome_acad,
-                tel_acad,
-                tel_resp,
-                nome_resp,
-                rua,
-                numero,
-                complemento,
-                cep,
-                cidade,
-                estado,
-                aluno
-            } = await request.body;
-    
-            const academia = await Academia.create({
-                logo,
-                nome_acad,
-                nome_resp,
-                tel_resp,
-                tel_acad,
-                rua,
-                numero,
-                complemento,
-                cep,
-                cidade,
-                estado,
-                aluno
-            })
+            const id = request.id;
+            const body = request.body;
+
+            const academia = await Academia.findByIdAndUpdate(id, body);
+
             return response.json(academia)
         } catch (error) {
-            console.log(error)
             return response.status(400).send({
                 error: 'Erro na criacao da academia'
             })
         }
-      
+
+    },
+
+    async DadosAcademia(request, response) {
+        const id = request.id;
+        try {
+            const academia = await Academia.findById(id);
+
+            return response.send(academia);
+        } catch (error) {
+            return response.status(400).send({
+                error: 'Erro na listagem de dados'
+            })
+        }
     },
 
     //Atualiza uma academia
     async UpdateAcademia(request, response) {
+        // const id = request.id;
+        // console.log(id)
+        // try {
 
-        const {
-            nome_acad,
-            nome_resp,
-            tel_resp,
-            tel_acad,
-            rua,
-            numero,
-            complemento,
-            cep,
-            cidade,
-            estado
-        } = request.body;
+        //     // const academia = await Academia.findById(id);
 
-        const updateAcademia = await Academia.updateOne({
+        //     // const keys = Object.keys(request.body);
 
-            nome_acad,
-            nome_resp,
-            tel_resp,
-            tel_acad,
-            rua,
-            numero,
-            complemento,
-            cep,
-            cidade,
-            estado
-        })
+        //     // keys.forEach(key => {
+        //     //     academia[key] = request.body[key];
+        //     // });
 
-        //Arrumar o retorno
-        return response.json(updateAcademia);
+        //     // const upAcademia = Academia.updateOne(request.body);
+
+        //     const academia = await Academia.findById(id)
+
+        //     const index = Academia.find(academia);
+
+        //     const keys = Object.keys(request.body);
+
+        //     keys.forEach(key => {
+        //         academia[key] = request.body[key];
+        //     });
+
+        //     const upAcademia = Academia.updateOne(academia[keys]);
+
+        //     //Arrumar o retorno
+        //     return response.send({
+        //         upAcademia
+        //     });
+        // } catch (error) {
+        //     console.log(error)
+        //     return response.status(400).send({
+        //         error: 'Erro na atualizaçao da academia'
+        //     })
+        // }
 
     },
 
-    //Deleta uma academia
+    //Deleta academia atual
     async DeleteAcademia(request, response) {
+        const id = request.id;
+        try {
+            const deleteAcademia = await Academia.findByIdAndRemove(id);
 
-        const id = {
-            _id: request.params.id
-        };
-
-        const deleteAcademia = await Academia.findByIdAndRemove(id);
-
-        return response.json(deleteAcademia);
+            return response.status(200).send({
+                message: 'Academia deletada com sucesso',
+                deleteAcademia
+            });
+        } catch (error) {
+            return response.status(400).send({
+                error: 'Erro ao deletar academia'
+            })
+        }
     }
 };
