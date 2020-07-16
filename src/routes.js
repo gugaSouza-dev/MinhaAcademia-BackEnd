@@ -8,17 +8,16 @@ const authMiddleware = require('./middlewares/auth');
 
 const routes = Router();
 
+//Login
 routes.post('/registro', AuthController.Registro);
 
 routes.post('/login', AuthController.Login);
-
 
 
 routes.use(authMiddleware);
 
 
 //Funçoes da academia
-
 routes.post('/academias', AcademiaController.AddAcademia);
 
 routes.get('/academias', AcademiaController.DadosAcademia);

@@ -1,7 +1,4 @@
-'use strict'
-const express = require('express');
 const Academia = require('../models/Academia');
-
 
 module.exports = {
 
@@ -22,6 +19,7 @@ module.exports = {
 
     },
 
+    //Retorna os dados da academia atual
     async DadosAcademia(request, response) {
         const id = request.id;
         try {
@@ -36,43 +34,25 @@ module.exports = {
     },
 
     //Atualiza uma academia
+    //Retorno nao otimizado
     async UpdateAcademia(request, response) {
-        // const id = request.id;
-        // console.log(id)
-        // try {
+        const id = request.id;
+        
+        try {
+            const body = request.body;
 
-        //     // const academia = await Academia.findById(id);
+            const academia = await Academia.findByIdAndUpdate(id, body);
 
-        //     // const keys = Object.keys(request.body);
-
-        //     // keys.forEach(key => {
-        //     //     academia[key] = request.body[key];
-        //     // });
-
-        //     // const upAcademia = Academia.updateOne(request.body);
-
-        //     const academia = await Academia.findById(id)
-
-        //     const index = Academia.find(academia);
-
-        //     const keys = Object.keys(request.body);
-
-        //     keys.forEach(key => {
-        //         academia[key] = request.body[key];
-        //     });
-
-        //     const upAcademia = Academia.updateOne(academia[keys]);
-
-        //     //Arrumar o retorno
-        //     return response.send({
-        //         upAcademia
-        //     });
-        // } catch (error) {
-        //     console.log(error)
-        //     return response.status(400).send({
-        //         error: 'Erro na atualizaçao da academia'
-        //     })
-        // }
+            return response.send({
+                message: 'Academia atualizada com sucesso',
+                academia
+            } );
+        } catch (error) {
+            console.log(error)
+            return response.status(400).send({
+                error: 'Erro na atualizaçao da academia'
+            })
+        }
 
     },
 

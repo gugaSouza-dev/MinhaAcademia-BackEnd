@@ -4,6 +4,8 @@ const authConfig = require('../config/auth');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+
+    //Registra um usuario novo
     async Registro(req, res){
         const { email, senha, nome_acad, adm} = req.body;
 
@@ -25,6 +27,7 @@ module.exports = {
         }
     },
 
+    //Loga o usuario retornando o token
     async Login(req, res){
         const {email, senha} = req.body;
         try {
