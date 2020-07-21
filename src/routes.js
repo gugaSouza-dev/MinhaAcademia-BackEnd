@@ -34,6 +34,8 @@ routes.get('/alunos', AlunoController.GetAluno);
 
 routes.get('/alunos/:idAluno', AlunoController.GetAlunoById);
 
+routes.delete('/alunos/:idAluno', AlunoController.DeleteAluno);
+
 
 //Funçoes do adm
 routes.get('/academias/adm', AdmController.ListaAcademia);
