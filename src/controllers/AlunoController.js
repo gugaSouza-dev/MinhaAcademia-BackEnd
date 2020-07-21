@@ -10,9 +10,9 @@ module.exports = {
 
             const alunoReturn = await academia._doc.aluno;
 
-            alunoReturn.create(body);
-            academia.save(function (err) {
-                if (err) return err;
+            alunoReturn.push(body);
+            academia.save(function(err) {
+                if(err) return err;
             });
 
             return response.send(alunoReturn)
