@@ -28,11 +28,11 @@ routes.delete('/academias', AcademiaController.DeleteAcademia);
 
 
 //Funçoes dos alunos
-routes.post('/alunos/:id', AlunoController.AddAluno);
+routes.post('/alunos', AlunoController.AddAluno);
 
-routes.get('/alunos/:id', AlunoController.GetAluno);
+routes.get('/alunos', AlunoController.GetAluno);
 
-routes.get('/alunos/:idAcademia/:idAluno', AlunoController.GetAlunoById);
+routes.get('/alunos/:idAluno', AlunoController.GetAlunoById);
 
 
 //Funçoes do adm
