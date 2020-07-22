@@ -1,7 +1,7 @@
 const Academia = require('../models/Academia');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -32,7 +32,6 @@ module.exports = {
         const {email, senha} = req.body;
         try {
             const academia = await Academia.findOne({email}).select('+senha');
-
             if(!academia)
             return res.status(400).send({error: 'Usuario nao encontrado'});
 
@@ -45,7 +44,7 @@ module.exports = {
                 expiresIn: 28800,
             });
 
-            res.send({academia, token});
+            return res.send({academia, token});
         } catch (error) {
             console.log(error)
             return res.status(400).send({error: 'Erro na autenticaçao'});

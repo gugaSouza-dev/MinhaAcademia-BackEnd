@@ -1,5 +1,6 @@
 const Academia = require('../models/Academia');
-//
+const _ = require('lodash');
+
 module.exports = {
 
     async AddAluno(request, response) {
@@ -68,6 +69,40 @@ module.exports = {
         }
     },
 
+    async AlteraAluno(request, response) {
+        const id = request.id;
+        const academia = await Academia.findById(id);
+        const idAluno = request.params.idAluno;
+        const body = request.body;
+
+        try {
+            //Atribuindo o 'alunosReturn' no array 'alunosEncontrados' me permite usar o .find()
+            const alunosEncontrados = [];
+            const alunosReturn = academia._doc.aluno;
+            Object.assign(alunosEncontrados, alunosReturn);
+
+            //Uso o .find() para pesquisar dentro dos alunos ja cadastrados e retornar o aluno que tenha o Id desejado
+            const aluno = await alunosEncontrados.find(x => x.idAluno === alunosEncontrados.id);
+            if (aluno._id == idAluno) {
+
+                const alunoAtt = _.merge(aluno, body)
+                academia.save();
+                return response.send({
+                    alunoAtt
+                })
+
+            } else return response.send({
+                message: 'Aluno nao encontrado'
+            })
+
+        } catch (error) {
+            console.log(error);
+            return response.status(400).send({
+                error: 'Erro na atualizaçao do aluno'
+            })
+        }
+    },
+
     async DeleteAluno(request, response) {
 
         const id = request.id;
@@ -75,7 +110,7 @@ module.exports = {
         const idAluno = request.params.idAluno;
         if (idAluno == null) return response.status(400).send({
             error: 'Id enviado nao encontrado'
-        })
+        });
         try {
 
             //Atribuindo o 'alunosReturn' no array 'alunosEncontrados' me permite usar o .find()
@@ -91,7 +126,7 @@ module.exports = {
 
             //Aqui checo mais uma vez se o Id do aluno bate com o Id desejado e entao apago o registro
             if (aluno._id == idAluno) {
-                const alunoRemovido = await alunosReturn.remove(aluno);
+                await alunosReturn.remove(aluno);
                 academia.save();
                 return response.status(200).send({
                     message: 'Aluno apagado com sucesso',
@@ -108,5 +143,4 @@ module.exports = {
             })
         }
     }
-
 }
