@@ -11,7 +11,16 @@ module.exports = {
 
             const alunoReturn = await academia._doc.aluno;
 
-            alunoReturn.push(body);
+            alunoReturn.push({
+                nome: body.nome,
+                tel: body.tel,
+                nome_resp: body.nome_resp,
+                data_nascimento: body.data_nascimento,
+                data_matricula: Date.now(),
+                ativo: body.ativo,
+                modalidade: body.modalidade,
+                mensalidade: body.mensalidade
+            });
             academia.save(function (err) {
                 if (err) return err;
             });
@@ -50,9 +59,7 @@ module.exports = {
 
             //Constante usada para armazenar os alunos
             const alunosEncontrados = [];
-
             const alunosReturn = academia._doc.aluno;
-
             Object.assign(alunosEncontrados, alunosReturn);
 
             const idAluno = {
@@ -113,7 +120,7 @@ module.exports = {
         });
         try {
 
-            //Atribuindo o 'alunosReturn' no array 'alunosEncontrados' me permite usar o .find()
+            //Atribuir o 'alunosReturn' no array 'alunosEncontrados' me permite usar o .find()
             const alunosEncontrados = [];
             const alunosReturn = academia._doc.aluno;
             Object.assign(alunosEncontrados, alunosReturn);

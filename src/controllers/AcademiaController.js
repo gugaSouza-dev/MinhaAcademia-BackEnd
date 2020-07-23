@@ -37,7 +37,7 @@ module.exports = {
     //Retorno nao otimizado
     async UpdateAcademia(request, response) {
         const id = request.id;
-        
+
         try {
             const body = request.body;
 
@@ -46,7 +46,7 @@ module.exports = {
             return response.send({
                 message: 'Academia atualizada com sucesso',
                 academia
-            } );
+            });
         } catch (error) {
             console.log(error)
             return response.status(400).send({

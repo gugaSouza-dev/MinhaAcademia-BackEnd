@@ -3,6 +3,7 @@ const AcademiaController = require('./controllers/AcademiaController');
 const AlunoController = require('./controllers/AlunoController');
 const AuthController = require('./controllers/AuthController');
 const AdmController = require('./controllers/AdmController');
+const LembreteController = require('./controllers/LembreteController');
 const authMiddleware = require('./middlewares/auth');
 
 
@@ -37,6 +38,10 @@ routes.get('/alunos/:idAluno', AlunoController.GetAlunoById);
 routes.delete('/alunos/:idAluno', AlunoController.DeleteAluno);
 
 routes.put('/alunos/:idAluno', AlunoController.AlteraAluno);
+
+
+//Lembretes
+routes.get('/lembrete', LembreteController.LembreteMensalidade);
 
 
 //Funçoes do adm

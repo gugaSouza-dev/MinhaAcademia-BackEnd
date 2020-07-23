@@ -27,11 +27,11 @@ const AcademiaSchema = new mongoose.Schema({
         tel_resp: String,
         data_nascimento: Date,
         //dia do vencimento da mensalidade
-        dia_venc_mensal: Number,
         data_matricula: Date,
         ativo: Boolean,
-        modalidade: String,
+        modalidade: {type: String, lowercase: true},
         mensalidade: { 
+            dia_venc_mensal: {type: Number, max: 2},
             valor:  Number,
             //pago ou atrasado
             status: Boolean
