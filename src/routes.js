@@ -41,7 +41,9 @@ routes.put('/alunos/:idAluno', AlunoController.AlteraAluno);
 
 
 //Lembretes
-routes.get('/lembrete', LembreteController.LembreteMensalidade);
+routes.get('/lembretes', LembreteController.LembreteMensalidade);
+
+routes.get('/lembretes/status', LembreteController.StatusMensalidade);
 
 
 //Funçoes do adm

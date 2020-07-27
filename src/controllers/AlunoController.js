@@ -15,17 +15,18 @@ module.exports = {
                 nome: body.nome,
                 tel: body.tel,
                 nome_resp: body.nome_resp,
+                tel_resp: body.tel_resp,
                 data_nascimento: body.data_nascimento,
                 data_matricula: Date.now(),
                 ativo: body.ativo,
                 modalidade: body.modalidade,
-                mensalidade: body.mensalidade
+                mensalidadeVenc: body.mensalidadeVenc,
+                mensalidadeValor: body.mensalidadeValor,
+                mensalidadeStatus: body.mensalidadeStatus,
             });
-            academia.save(function (err) {
-                if (err) return err;
-            });
+            academia.save();
 
-            return response.send(alunoReturn)
+            return response.send(academia)
 
         } catch (error) {
             console.log(error);
@@ -149,5 +150,15 @@ module.exports = {
                 error: 'Erro na remocao do aluno'
             })
         }
+    },
+    //Funcao feita para trocar o status do pagamento do aluno
+    async TrocaAlunoStatus(alunos, academia) {
+        const alunoAcademia = academia;
+        const aluno = alunos;
+        const body = {
+            mensalidadeStatus: false
+        };
+        const alunoAtt = _.merge(aluno, body)
+        academia.save();
     }
 }

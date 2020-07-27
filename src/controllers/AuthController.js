@@ -35,7 +35,7 @@ module.exports = {
             if(!academia)
             return res.status(400).send({error: 'Usuario nao encontrado'});
 
-            if(!await bcrypt.compare(senha, academia.senha))
+            if(!bcrypt.compare(senha, academia.senha))
             return res.status(400).send({error: 'Senha invalida'});
 
             academia.senha = undefined;
@@ -44,7 +44,7 @@ module.exports = {
                 expiresIn: 28800,
             });
 
-            return res.send({academia, token});
+            return res.send({token});
         } catch (error) {
             console.log(error)
             return res.status(400).send({error: 'Erro na autenticaçao'});

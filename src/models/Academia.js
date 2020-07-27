@@ -30,12 +30,9 @@ const AcademiaSchema = new mongoose.Schema({
         data_matricula: Date,
         ativo: Boolean,
         modalidade: {type: String, lowercase: true},
-        mensalidade: { 
-            dia_venc_mensal: {type: Number, max: 2},
-            valor:  Number,
-            //pago ou atrasado
-            status: Boolean
-        }
+        mensalidadeVenc: Date,
+        mensalidadeValor: Number,
+        mensalidadeStatus: {type: Boolean, default: true},
     }]
 });
 
