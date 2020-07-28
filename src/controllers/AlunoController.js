@@ -3,6 +3,7 @@ const _ = require('lodash');
 
 module.exports = {
 
+    //Adiciona aluno
     async AddAluno(request, response) {
         const id = request.id;
         const body = request.body;
@@ -36,7 +37,7 @@ module.exports = {
         }
     },
 
-    //Busca os alunos
+    //Busca todos os alunos
     async GetAluno(request, response) {
         try {
 
@@ -51,7 +52,7 @@ module.exports = {
         }
     },
 
-
+    //Busca aluno por id
     async GetAlunoById(request, response) {
 
         const id = request.id;
@@ -77,6 +78,7 @@ module.exports = {
         }
     },
 
+    //Atualiza um aluno
     async AlteraAluno(request, response) {
         const id = request.id;
         const academia = await Academia.findById(id);
@@ -111,6 +113,7 @@ module.exports = {
         }
     },
 
+    //Deleta um aluno
     async DeleteAluno(request, response) {
 
         const id = request.id;
@@ -152,7 +155,8 @@ module.exports = {
         }
     },
 
-    //Funcao feita para trocar o status do pagamento do aluno
+    //sem rota
+    //Funcao feita para trocar o status do pagamento do aluno para falso (nao pagou a mensalidade no dia)
     async AlunoStatusFalse(alunos, academia) {
         const aluno = alunos;
         const body = {
@@ -162,6 +166,7 @@ module.exports = {
         academia.save();
     },
 
+    //Funcao para confirmar o pagamento da mensalidade
     async ConfirmaPagamento(request, response){
         const id = request.id;
         const body = request.body;

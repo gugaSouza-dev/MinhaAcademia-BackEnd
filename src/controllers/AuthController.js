@@ -27,7 +27,7 @@ module.exports = {
         }
     },
 
-    //Loga o usuario retornando o token
+    //Loga o usuario retornando o token e a academia
     async Login(req, res){
         const {email, senha} = req.body;
         try {
@@ -44,7 +44,7 @@ module.exports = {
                 expiresIn: 28800,
             });
 
-            return res.send({token});
+            return res.send({token, academia});
         } catch (error) {
             console.log(error)
             return res.status(400).send({error: 'Erro na autenticaçao'});

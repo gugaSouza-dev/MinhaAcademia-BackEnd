@@ -5,6 +5,7 @@ const _ = require('lodash');
 
 module.exports = {
 
+    //Lista os alunos com a mensalidade atrasada
     async LembreteMensalidade(request, response) {
         const id = request.id;
         const academia = await Academia.findById(id);
@@ -37,6 +38,8 @@ module.exports = {
             })
         }
     },
+
+    //Busca todos os alunos cadastrados e os retorna. Tambem confere e altera se a mensalidade estiver vencida
     async StatusMensalidade(request, response) {
         const id = request.id;
         const academia = await Academia.findById(id);

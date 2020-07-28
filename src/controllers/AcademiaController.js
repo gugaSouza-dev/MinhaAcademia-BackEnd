@@ -2,7 +2,7 @@ const Academia = require('../models/Academia');
 
 module.exports = {
 
-    //Adiciona uma nova academia
+    //Preenche os dados de uma academia
     async AddAcademia(request, response) {
         try {
             const id = request.id;
@@ -33,8 +33,7 @@ module.exports = {
         }
     },
 
-    //Atualiza uma academia
-    //Retorno nao otimizado
+    //Atualiza academia atual
     async UpdateAcademia(request, response) {
         const id = request.id;
 
