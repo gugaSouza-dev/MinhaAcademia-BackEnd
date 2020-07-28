@@ -1,7 +1,5 @@
 const Academia = require('../models/Academia');
-const {
-    TrocaAlunoStatus
-} = require('./AlunoController');
+const {AlunoStatusFalse, AlunoStatusTrue} = require('./AlunoController');
 const _ = require('lodash');
 
 
@@ -17,7 +15,7 @@ module.exports = {
             var listaAlunos = new Array();
 
             for (let i = 0; i < alunos.length; i++) {
-                const mensalidade = alunos[i]._doc.mensalidade.status;
+                const mensalidade = alunos[i]._doc.mensalidadeStatus;
                 if (mensalidade == false) {
                     listaAlunos.push(alunos[i]);
                 }
@@ -33,6 +31,7 @@ module.exports = {
                 })
             }
         } catch (error) {
+            console.log(error)
             return response.status(400).send({
                 error: 'Erro no lembrete de mensalidade'
             })
@@ -67,7 +66,7 @@ module.exports = {
 
                 if (mensalidadeVenc > dia) {
                     if (mensalidadeStatus == true)
-                        TrocaAlunoStatus(alunos[i], academia)
+                        AlunoStatusFalse(alunos[i], academia)
 
                 }
                 if (alunos[i]._doc.mensalidadeStatus == false)

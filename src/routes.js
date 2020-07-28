@@ -39,6 +39,8 @@ routes.delete('/alunos/:idAluno', AlunoController.DeleteAluno);
 
 routes.put('/alunos/:idAluno', AlunoController.AlteraAluno);
 
+routes.put('/alunos/pagamento/:idAluno', AlunoController.ConfirmaPagamento);
+
 
 //Lembretes
 routes.get('/lembretes', LembreteController.LembreteMensalidade);

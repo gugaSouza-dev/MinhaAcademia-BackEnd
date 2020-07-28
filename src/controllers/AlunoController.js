@@ -151,14 +151,45 @@ module.exports = {
             })
         }
     },
+
     //Funcao feita para trocar o status do pagamento do aluno
-    async TrocaAlunoStatus(alunos, academia) {
-        const alunoAcademia = academia;
+    async AlunoStatusFalse(alunos, academia) {
         const aluno = alunos;
         const body = {
             mensalidadeStatus: false
         };
-        const alunoAtt = _.merge(aluno, body)
+        await _.merge(aluno, body)
         academia.save();
+    },
+
+    async ConfirmaPagamento(request, response){
+        const id = request.id;
+        const body = request.body;
+        const academia = await Academia.findById(id);
+        try {
+
+            //Constante usada para armazenar os alunos
+            const alunosEncontrados = [];
+            const alunosReturn = academia._doc.aluno;
+            Object.assign(alunosEncontrados, alunosReturn);
+
+            const idAluno = {
+                _id: request.params.idAluno
+            };
+            const aluno = alunosEncontrados.find(x => x.idAluno === alunosEncontrados.id);
+
+            if (aluno._doc.mensalidadeStatus == false) {
+                await _.merge(aluno, body)
+            }else {return response.json({message :'Pagamento ja confirmado'})}
+
+            return response.json(aluno);
+        } catch (error) {
+            console.log(error);
+            return response.status(400).send({
+                error: 'Erro na busca do aluno'
+            })
+        }
+
+
     }
 }
