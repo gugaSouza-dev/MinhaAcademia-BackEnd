@@ -2,7 +2,7 @@ const express = require('express');
 //Mongoose conecta a api com o Mongo
 const mongoose = require('mongoose');
 const routes = require('./routes');
-
+const cors = require('cors');
 
 
 const app = express();
@@ -12,6 +12,7 @@ mongoose.connect('mongodb+srv://minhaAcademia:minhaAcademia@minhaacademia.c23pv.
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+app.use(cors('http://localhost:3333'));
 
 app.use(express.json());
 

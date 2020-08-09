@@ -19,8 +19,12 @@ module.exports = {
             const academia = await Academia.create({email, senha, nome_acad, adm});
             
             academia.senha = undefined;
+            
+            const token = jwt.sign({id: academia.id, adm: academia.adm}, authConfig.secret, {
+                expiresIn: 28800,
+            });
 
-            return res.send({academia})
+            return res.send({token, academia});
 
         } catch (error) {
             return res.status(400).send({error: 'Erro no registro'});
@@ -35,7 +39,7 @@ module.exports = {
             if(!academia)
             return res.status(400).send({error: 'Usuario nao encontrado'});
 
-            if(!bcrypt.compare(senha, academia.senha))
+            if(!bcrypt.compareSync(senha, academia.senha))
             return res.status(400).send({error: 'Senha invalida'});
 
             academia.senha = undefined;
