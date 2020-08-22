@@ -4,6 +4,7 @@ const AlunoController = require('./controllers/AlunoController');
 const AuthController = require('./controllers/AuthController');
 const AdmController = require('./controllers/AdmController');
 const LembreteController = require('./controllers/LembreteController');
+const APILocais = require('./services/localAPI');
 const authMiddleware = require('./middlewares/auth');
 
 
@@ -13,6 +14,11 @@ const routes = Router();
 routes.post('/registro', AuthController.Registro);
 
 routes.post('/login', AuthController.Login);
+
+
+routes.get('/services/estados', APILocais.LocaisApiEstado);
+
+routes.get('/services/cidades', APILocais.LocaisApiCidade);
 
 
 routes.use(authMiddleware);

@@ -14,3 +14,5 @@ yarn add bcrypt
 yarn add jsonwebtoken
 
 yarn add lodash
+
+npm add node-fetch
